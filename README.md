@@ -1,2 +1,2 @@
 # Bumblebee-humidifier
-Bumblebee humidifier ESP8266
+IOT Bumblebee humidifier ESP8266
