@@ -4,6 +4,21 @@
 // https://github.com/rkoptev/ACS712-arduino
 #include "ACS712.h"
 
+/***********************************PINS***************************************/
+
+#define PIN_POMP 2
+#define PIN_ACS712 A8
+
+
+// Initialize the library by associating any needed LCD interface pin
+// With the arduino pin number it is connected to
+const int rs = 8,
+          en = 9,
+          d4 = 4,
+          d5 = 5,
+          d6 = 6,
+          d7 = 7;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 /*
   This example shows how to measure the power consumption
   of devices in 230V electrical system
@@ -12,21 +27,11 @@
 
 // We have 30 amps version sensor connected to A0 pin of arduino
 // Replace with your version if necessary
-ACS712 sensor(ACS712_30A, A8);
-
-// initialize the library by associating any needed LCD interface pin
-// with the arduino pin number it is connected to
-const int rs = 8,
-          en = 9,
-          d4 = 4,
-          d5 = 5,
-          d6 = 6,
-          d7 = 7;
-LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+ACS712 sensor(ACS712_30A, PIN_ACS712);
 
 void setup() {
         Serial.begin(9600);
-        pinMode(2, OUTPUT); // устанавливает режим работы - выход
+        pinMode(PIN_POMP, OUTPUT); // устанавливает режим работы - выход
         
         // calibrate() method calibrates zero point of sensor,
         // It is not necessary, but may positively affect the accuracy
@@ -68,9 +73,9 @@ void loop() {
         // print the number of seconds since reset:
         lcd.print(String("P = ") + P + " Watts");
         if (P < 10) {
-                digitalWrite(2, HIGH);
+                digitalWrite(PIN_POMP, HIGH);
                 delay(10 * 1000);
-                digitalWrite(2, LOW);
+                digitalWrite(PIN_POMP, LOW);
         }
         
         //lcd.clear();
