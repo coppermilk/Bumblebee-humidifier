@@ -31,7 +31,7 @@ ACS712 sensor(ACS712_30A, PIN_ACS712);
 
 void setup() {
         Serial.begin(9600);
-        pinMode(PIN_POMP, OUTPUT); // устанавливает режим работы - выход
+        pinMode(PIN_POMP, OUTPUT); // sets the operating mode - output
         
         // calibrate() method calibrates zero point of sensor,
         // It is not necessary, but may positively affect the accuracy
