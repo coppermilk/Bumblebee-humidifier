@@ -29,6 +29,8 @@ unsigned long printPeriod = 1000;
 // Track time in milliseconds since last reading 
 unsigned long previousMillis = 0;
 
+boolean ledState = 0; // переменная состояния светодиода
+
 /***********************************PINS***************************************/
 
 #define PIN_POMP 2
@@ -84,16 +86,21 @@ void loop() {
 
                         Serial.print("\t To test: ");
                         Serial.println(inputStats.sigma() + 0);
-                  
                         // Set the cursor to column 0, line 1
                         // (Note: line 1 is the second row, since counting begins with 0):
                         lcd.setCursor(0, 0);
-                        lcd.print("Uptime: ");
+                        lcd.print("Time: ");
                         lcd.print(millis() / 1000);
 
                         lcd.setCursor(0, 1);
                         lcd.print("Amps: ");
                         lcd.print(Amps_TRMS);
+
+                        if (Amps_TRMS < 0.15) {
+                                digitalWrite(PIN_POMP, HIGH);
+                        }else{
+                           digitalWrite(PIN_POMP, LOW);
+                          }
 
                 }
         }
